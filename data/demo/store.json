@@ -1,0 +1,67 @@
+{
+  "_comment": "SYNTHETIC DEMO DATA for the fictional Northstar Shop. Not real people or orders.",
+  "customers": [
+    {"id": "CUST-001", "display_name": "Demo Customer Alex"},
+    {"id": "CUST-002", "display_name": "Demo Customer Sam"},
+    {"id": "CUST-003", "display_name": "Demo Customer Jordan"}
+  ],
+  "orders": [
+    {
+      "order_id": "ORD-1001",
+      "customer_id": "CUST-001",
+      "status": "delivered",
+      "created_at": "2026-09-28T14:05:00+00:00",
+      "estimated_delivery": "2026-10-02",
+      "tracking_number": "NSX-TRK-100001",
+      "items": [{"sku": "NS-BTL-01", "name": "Insulated Water Bottle", "quantity": 2}]
+    },
+    {
+      "order_id": "ORD-1002",
+      "customer_id": "CUST-001",
+      "status": "shipped",
+      "created_at": "2026-10-14T09:30:00+00:00",
+      "estimated_delivery": "2026-10-21",
+      "tracking_number": "NSX-TRK-100002",
+      "items": [{"sku": "NS-BAG-07", "name": "Trail Daypack 20L", "quantity": 1}]
+    },
+    {
+      "order_id": "ORD-1003",
+      "customer_id": "CUST-001",
+      "status": "processing",
+      "created_at": "2026-10-18T18:45:00+00:00",
+      "estimated_delivery": "2026-10-24",
+      "tracking_number": null,
+      "items": [
+        {"sku": "NS-HP-02", "name": "Northstar Wireless Headphones", "quantity": 1},
+        {"sku": "NS-CBL-01", "name": "USB-C Cable 1m", "quantity": 1}
+      ]
+    },
+    {
+      "order_id": "ORD-2001",
+      "customer_id": "CUST-002",
+      "status": "delivered",
+      "created_at": "2026-10-01T11:00:00+00:00",
+      "estimated_delivery": "2026-10-06",
+      "tracking_number": "NSX-TRK-200001",
+      "items": [{"sku": "NS-LMP-03", "name": "Camping Lantern", "quantity": 1}]
+    },
+    {
+      "order_id": "ORD-2002",
+      "customer_id": "CUST-002",
+      "status": "cancelled",
+      "created_at": "2026-10-10T08:15:00+00:00",
+      "estimated_delivery": null,
+      "tracking_number": null,
+      "items": [{"sku": "NS-JKT-05", "name": "Rain Shell Jacket", "quantity": 1}]
+    },
+    {
+      "order_id": "ORD-3001",
+      "customer_id": "CUST-003",
+      "status": "out_for_delivery",
+      "created_at": "2026-10-15T16:20:00+00:00",
+      "estimated_delivery": "2026-10-19",
+      "tracking_number": "NSX-TRK-300001",
+      "items": [{"sku": "NS-SPK-01", "name": "Northstar Portable Speaker", "quantity": 1}]
+    }
+  ]
+}

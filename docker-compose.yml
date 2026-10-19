@@ -1,0 +1,43 @@
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    environment:
+      # Local development credentials only. Do not reuse anywhere else.
+      POSTGRES_USER: supportpilot
+      POSTGRES_PASSWORD: supportpilot
+      POSTGRES_DB: supportpilot
+    ports:
+      - "${POSTGRES_HOST_PORT:-5433}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./docker/postgres/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U supportpilot -d supportpilot"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  app:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql+psycopg://supportpilot:supportpilot@db:5432/supportpilot
+      LLM_PROVIDER: ${LLM_PROVIDER:-fake}
+      EMBEDDING_PROVIDER: ${EMBEDDING_PROVIDER:-fake}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      MOCK_ORDER_FAILURE_MODE: ${MOCK_ORDER_FAILURE_MODE:-none}
+      ENABLE_DEMO_AUTH: "true"
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+    # Migrate, seed synthetic data, and ingest the knowledge base (all idempotent), then serve.
+    command: >
+      sh -c "alembic upgrade head &&
+             python scripts/seed_demo_data.py &&
+             python scripts/ingest_knowledge.py &&
+             uvicorn app.main:app --host 0.0.0.0 --port 8000"
+    ports:
+      - "${APP_HOST_PORT:-8000}:8000"
+
+volumes:
+  pgdata:
